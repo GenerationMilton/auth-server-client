@@ -1,0 +1,27 @@
+spring:
+  security:
+    oauth2:
+      resourceserver: #servidor de recursos
+        jwt:
+          issuer-uri: "http://127.0.0.1:9000"
+      client:
+        registration:
+          client-app:
+            provider: spring
+            client-id: client-app
+            client-secret: 12345
+            authorization-grant-type: authorization_code
+            #enpoint o ruta del servicio de authorization en local
+            redirect-uri: "http://127.0.0.1:8080/authorized"  #servidor de autorizacion
+            #scope o roles para authenticarse
+            scope:
+              - openid
+              - profile
+              - read
+              - write
+            client-name: client-app
+        provider:
+          spring:
+            #en local pero si esta en aws hay que colocar el DNS o dominio o IP publica
+            #de la maquina que corresponda donde esta alojado el servidor de auth
+            issuer-uri: "http://127.0.0.1:9000"
